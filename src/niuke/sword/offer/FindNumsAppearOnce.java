@@ -1,4 +1,4 @@
-package sword.offer;
+package niuke.sword.offer;
 
 /**
  * 数组中只出现一次的数字

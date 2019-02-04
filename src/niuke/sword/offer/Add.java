@@ -1,4 +1,4 @@
-package sword.offer;
+package niuke.sword.offer;
 
 /**
  * 不用加减乘除做加法

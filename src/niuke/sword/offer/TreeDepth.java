@@ -1,4 +1,4 @@
-package sword.offer;
+package niuke.sword.offer;
 
 /**
  * 二叉树的深度

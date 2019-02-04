@@ -1,4 +1,4 @@
-package sword.offer;
+package niuke.sword.offer;
 
 /**
  * 把字符串转换为整数
