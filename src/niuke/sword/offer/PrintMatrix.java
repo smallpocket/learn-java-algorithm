@@ -74,6 +74,13 @@ public class PrintMatrix {
     }
 
     //FIXME:真正的解法
+
+    /**
+     * 找到四个角落的坐标,进行循环
+     *
+     * @param array
+     * @return
+     */
     public ArrayList<Integer> printMatrix2(int[][] array) {
         ArrayList<Integer> result = new ArrayList<>();
         if (array.length == 0) {
@@ -83,7 +90,8 @@ public class PrintMatrix {
         if (m == 0) {
             return result;
         }
-        int layers = (Math.min(n, m) - 1) / 2 + 1;//这个是层数
+        //这个是层数，外围一圈为一层
+        int layers = (Math.min(n, m) - 1) / 2 + 1;
         for (int i = 0; i < layers; i++) {
             for (int k = i; k < m - i; k++) {
                 result.add(array[i][k]);//左至右
