@@ -11,6 +11,13 @@ package niuke.sword.offer;
  * @Time : 2019/2/5 21:03
  */
 public class GetMedian {
+    /**
+     * 堆可以看做一个完全二叉树，同时该完全二叉树满足双亲结点大于等于孩子结点（大顶堆），
+     * 或者双亲结点小于等于孩子结点（小顶堆）。
+     *
+     * @param num
+     */
+
     public void insert(Integer num) {
 
     }
