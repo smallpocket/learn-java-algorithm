@@ -23,6 +23,6 @@ public class GetMedian {
     }
 
     public Double getMedian() {
-
+        return 0.0;
     }
 }

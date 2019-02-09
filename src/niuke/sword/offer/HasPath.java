@@ -11,8 +11,59 @@ package niuke.sword.offer;
  * @Time : 2019/2/8 17:04
  */
 public class HasPath {
+    /**
+     * @param matrix 字符串矩阵
+     * @param rows   行数
+     * @param cols   列数
+     * @param str    需要的字符串
+     * @return 是否存在
+     */
     public boolean hasPath(char[] matrix, int rows, int cols, char[] str) {
+        if (matrix == null || matrix.length == 0 || str == null || str.length == 0) {
+            return false;
+        }
+        //判断是否已经访问过
+        boolean[] ifExist = new boolean[rows * cols];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (isHsaPath(matrix, rows, cols, str, 0, ifExist, i, j)) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
+    /**
+     * @param matrix  字符串矩阵
+     * @param rows    行数
+     * @param cols    列数
+     * @param str     需要的字符串
+     * @param ifExist 是否经过格子的判断矩阵
+     * @param curx    应该是访问到的矩阵横坐标
+     * @param cury    应该是访问到的矩阵纵坐标
+     * @return
+     */
+    public boolean isHsaPath(char[] matrix, int rows, int cols, char[] str, int pos, boolean[] ifExist, int curx, int cury) {
+        if (pos == str.length) {
+            return true;
+        }
+        //判断是否越界
+        if (curx < 0 || curx >= rows || cury < 0 || cury >= cols) {
+            return false;
+        }
+        //判断是否访问过该位置,以及字符是否匹配
+        if (ifExist[curx * cols + cury] || str[pos] != matrix[curx * cols + cury]) {
+            return false;
+        }
+        //在该位置处,该节点被访问过
+        ifExist[curx * cols + cury] = true;
+        boolean result = isHsaPath(matrix, rows, cols, str, pos + 1, ifExist, curx + 1, cury)
+                || isHsaPath(matrix, rows, cols, str, pos + 1, ifExist, curx - 1, cury)
+                || isHsaPath(matrix, rows, cols, str, pos + 1, ifExist, curx, cury + 1)
+                || isHsaPath(matrix, rows, cols, str, pos + 1, ifExist, curx, cury - 1);
+        //推出递归,这个节点就相当于还没有被访问过
+        ifExist[curx * cols + cury] = false;
+        return result;
+    }
 }
