@@ -10,11 +10,23 @@ package niuke.sword.offer;
 public class NumberOf1 {
     /**
      * Fixme:补码是啥来着
+     * 反码:对除符号位(最高位0为正,1为负)外的其余各位逐位取反
+     * 负数的补码:反码+1
+     * 正数的补码:==反码
      *
      * @param n
      * @return
      */
-    public int NumberOf1(int n) {
-        return 0;
+    public int numberOf1(int n) {
+        int count = 0;
+        //位运算,将其每一位与1进行&运算
+        int flag = 1;
+        while (flag != 0) {
+            if ((n & flag) != 0) {
+                count++;
+            }
+            flag = flag << 1;
+        }
+        return count;
     }
 }
