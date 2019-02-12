@@ -1,4 +1,4 @@
-package leetcode.string;
+package leetcode.explore.string;
 
 /**
  * 字符串处理的很多方法不怎么会
