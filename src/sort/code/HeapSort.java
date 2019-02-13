@@ -28,11 +28,18 @@ public class HeapSort {
      */
     public void buildMaxHeap(int[] arr) {
         len = arr.length;
+        //中间的元素应该是顶部元素
         for (int i = len / 2; i >= 0; i--) {
             heapify(arr, i);
         }
     }
 
+    /**
+     * 将大元素调整上去
+     *
+     * @param arr
+     * @param i
+     */
     public void heapify(int[] arr, int i) {
         //i 的左孩子结点与右孩子结点
         int left = 2 * i + 1, right = 2 * i + 2;
@@ -63,6 +70,12 @@ public class HeapSort {
     }
 
     public void heapSort(int[] arr) {
+        //arr按照顺序存放,构造一颗完全二叉树
+        //例如[2,3,4,5,6,7,8]
+        //    2
+        //  3   4
+        //5  6 7 8
+        //从下到上,从右到左选择一个非叶子结点开始调整
         buildMaxHeap(arr);
         for (int i = arr.length - 1; i > 0; i--) {
             swap(arr, 0, i);
