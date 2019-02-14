@@ -17,6 +17,15 @@ package leetcode.dp;
  * @date 2019/2/13 16:30
  */
 public class MaxEnvelopes {
+    /**
+     * 想了一下思路
+     * 基数排序
+     * 对长宽排序出来的结果进行分析?
+     * 分别纳入一个数组
+     *
+     * @param envelopes
+     * @return
+     */
     public int maxEnvelopes(int[][] envelopes) {
         return 0;
     }
