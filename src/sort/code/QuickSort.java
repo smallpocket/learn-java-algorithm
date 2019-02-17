@@ -13,37 +13,29 @@ package sort.code;
  * @Time : 2019/2/6 14:17
  */
 public class QuickSort {
-    public void quickSort(int[] arr, int left, int right) {
-        if (left >= right) {
+    public static void qSort(int[] arr, int head, int tail) {
+        if (head >= tail || arr == null || arr.length <= 1) {
             return;
         }
-        int parIndex = partition(arr, left, right);
-        quickSort(arr, left, parIndex - 1);
-        quickSort(arr, parIndex + 1, right);
-    }
-
-    /**
-     * 快排分区
-     *
-     * @param arr
-     * @param left  左边界,即第一个值,一般选取作基准
-     * @param right
-     */
-    public int partition(int[] arr, int left, int right) {
-        int index = left + 1;
-        for (int i = index; i <= right; i++) {
-            if (arr[i] < arr[left]) {
-                swap(arr, i, index);
-                index++;
+        int i = head, j = tail, pivot = arr[(head + tail) / 2];
+        while (i <= j) {
+            while (arr[i] < pivot) {
+                ++i;
+            }
+            while (arr[j] > pivot) {
+                --j;
+            }
+            if (i < j) {
+                int t = arr[i];
+                arr[i] = arr[j];
+                arr[j] = t;
+                ++i;
+                --j;
+            } else if (i == j) {
+                ++i;
             }
         }
-        swap(arr, left, index - 1);
-        return index - 1;
-    }
-
-    public void swap(int[] arr, int i, int j) {
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
+        qSort(arr, head, j);
+        qSort(arr, i, tail);
     }
 }

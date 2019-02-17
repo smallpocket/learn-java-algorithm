@@ -1,5 +1,8 @@
 package leetcode.top;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 将一个给定字符串根据给定的行数，以从上往下、从左到右进行 Z 字形排列。
  * 比如输入字符串为 "LEETCODEISHIRING" 行数为 3 时，排列如下：
@@ -29,6 +32,30 @@ package leetcode.top;
  */
 public class Convert {
     public String convert(String s, int numRows) {
-        return null;
+        if (s == null || s.length() == 0 || numRows == 1) {
+            return s;
+        }
+        char[] str = s.toCharArray();
+        List<StringBuilder> rows = new ArrayList<>();
+        for (int i = 0; i < Math.min(numRows, s.length()); i++) {
+            rows.add(new StringBuilder());
+        }
+        //表示行数
+        int pos = 0;
+        //表示方向向上
+        boolean dir = false;
+        for (char c : str) {
+            rows.get(pos).append(c);
+            //变换方向
+            if (pos == 0 || pos == numRows - 1) {
+                dir = !dir;
+            }
+            pos += dir ? +1 : -1;
+        }
+        StringBuilder result = new StringBuilder();
+        for (StringBuilder sb : rows) {
+            result.append(sb);
+        }
+        return result.toString();
     }
 }

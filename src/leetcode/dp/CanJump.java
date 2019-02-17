@@ -20,8 +20,10 @@ package leetcode.dp;
  * @date 2019/2/11 23:22
  */
 public class CanJump {
+
     /**
      * 解法2:从后向前遍历,如果可以到达后面,则截断后面
+     * 如果可以从前往后，就可以思考一下从后往前
      *
      * @param nums
      * @return
@@ -42,6 +44,11 @@ public class CanJump {
         return false;
     }
 
+    /**
+     * 创建数组的方法 new int[]{}
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         canJump(new int[]{1, 2, 3});
     }

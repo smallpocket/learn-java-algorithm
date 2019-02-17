@@ -18,6 +18,14 @@ package leetcode.explore.sort;
  * @date 2019/2/12 21:45
  */
 public class Merge {
+    /**
+     * 需要从尾开始遍历，否则在 nums1 上归并得到的值会覆盖还未进行归并比较的值。
+     *
+     * @param nums1
+     * @param m
+     * @param nums2
+     * @param n
+     */
     public void merge(int[] nums1, int m, int[] nums2, int n) {
         int p = m-- + n-- - 1;
         while (m >= 0 && n >= 0) {

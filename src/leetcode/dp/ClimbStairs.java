@@ -25,6 +25,13 @@ package leetcode.dp;
  * @date 2019/2/11 19:49
  */
 public class ClimbStairs {
+    /**
+     * 这个题目和硬币不一样的地方在于,
+     * 即使数字相同,数字不同也是不一样的
+     *
+     * @param n
+     * @return
+     */
     public int climbStairs(int n) {
         if (n == 1) {
             return 1;

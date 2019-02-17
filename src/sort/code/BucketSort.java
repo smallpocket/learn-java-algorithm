@@ -1,5 +1,8 @@
 package sort.code;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 桶排序是计数排序的升级版。它利用了函数的映射关系，高效与否的关键就在于这个映射函数的确定。
  * 桶排序 (Bucket sort)的工作的原理：假设输入数据服从均匀分布，将数据分到有限数量的桶里，
@@ -16,40 +19,55 @@ package sort.code;
  * @Time : 2019/2/6 14:18
  */
 public class BucketSort {
-    public int[] bucketSort(int[] arr, int bucketSize) {
-        if (arr.length == 0) {
-            return arr;
-        }
+    private int indexFor(int a, int min, int step) {
+        return (a - min) / step;
+    }
 
-        int i;
-        int minValue = arr[0];
-        int maxValue = arr[0];
-        for (i = 1; i < arr.length; i++) {
-            if (arr[i] < minValue) {
-                // 输入数据的最小值
-                minValue = arr[i];
-            } else if (arr[i] > maxValue) {
-                // 输入数据的最大值
-                maxValue = arr[i];
+    public void bucketSort(int[] arr) {
+        int max = arr[0], min = arr[0];
+        for (int a : arr) {
+            if (max < a) {
+                max = a;
+            }
+            if (min > a) {
+                min = a;
+            }
+        }
+        // 該值也可根據實際情況選擇
+        int bucketNum = max / 10 - min / 10 + 1;
+        List buckList = new ArrayList<List<Integer>>();
+        // create bucket
+        for (int i = 1; i <= bucketNum; i++) {
+            buckList.add(new ArrayList<Integer>());
+        }
+        // push into the bucket
+        for (int i = 0; i < arr.length; i++) {
+            int index = indexFor(arr[i], min, 10);
+            ((ArrayList<Integer>) buckList.get(index)).add(arr[i]);
+        }
+        ArrayList<Integer> bucket = null;
+        int index = 0;
+        for (int i = 0; i < bucketNum; i++) {
+            bucket = (ArrayList<Integer>) buckList.get(i);
+            insertSort(bucket);
+            for (int k : bucket) {
+                arr[index++] = k;
             }
         }
 
-        // 桶的初始化
-        int bucketCount = (int) (Math.floor((maxValue - minValue) / bucketSize) + 1);
-        int[] buckets = new int[bucketCount];
+    }
 
-        // 利用映射函数将数据分配到各个桶中
-        for (i = 0; i < arr.length; i++) {
-            buckets[(int) Math.floor((arr[i] - minValue) / bucketSize)] = arr[i];
+    /**
+     * 把桶內元素插入排序
+     */
+    private void insertSort(List<Integer> bucket) {
+        for (int i = 1; i < bucket.size(); i++) {
+            int temp = bucket.get(i);
+            int j = i - 1;
+            for (; j >= 0 && bucket.get(j) > temp; j--) {
+                bucket.set(j + 1, bucket.get(j));
+            }
+            bucket.set(j + 1, temp);
         }
-
-//        for (i = 0; i < buckets.length; i++) {
-//            insertionSort(buckets[i]);                      // 对每个桶进行排序，这里使用了插入排序
-//            for (var j = 0; j < buckets[i].length; j++) {
-//                arr.push(buckets[i][j]);
-//            }
-//        }
-
-        return arr;
     }
 }
