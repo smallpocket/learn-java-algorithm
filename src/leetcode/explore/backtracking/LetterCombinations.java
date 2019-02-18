@@ -44,6 +44,7 @@ public class LetterCombinations {
             num[i] = number % 10;
             number /= 10;
         }
+        //FIXME:使用StringBuffer也可以,最后利用toString将字符串加入集合当中
         addLetter(0, num, "");
         return list;
     }
