@@ -54,13 +54,22 @@ public class WordExist {
      * @param ifExist   判断是否访问过该节点
      * @return
      */
-    public static boolean dfs(char[][] board, int rowIndex, int colIndex, char[] words, int wordIndex, boolean[][] ifExist) {
+    public static boolean dfs(char[][] board,
+                              int rowIndex,
+                              int colIndex,
+                              char[] words,
+                              int wordIndex,
+                              boolean[][] ifExist) {
         int row = board.length, col = board[0].length;
         boolean result = false;
         if (wordIndex == words.length) {
             return true;
         }
-        if (rowIndex >= row || colIndex >= col || rowIndex < 0 || colIndex < 0 || ifExist[rowIndex][colIndex] == true) {
+        if (rowIndex >= row
+                || colIndex >= col
+                || rowIndex < 0
+                || colIndex < 0
+                || ifExist[rowIndex][colIndex]) {
             return false;
         }
         if (board[rowIndex][colIndex] == words[wordIndex]) {

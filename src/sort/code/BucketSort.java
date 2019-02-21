@@ -23,6 +23,11 @@ public class BucketSort {
         return (a - min) / step;
     }
 
+    /**
+     * 出现频率最多的 k 个数
+     *
+     * @param arr
+     */
     public void bucketSort(int[] arr) {
         int max = arr[0], min = arr[0];
         for (int a : arr) {
@@ -42,6 +47,7 @@ public class BucketSort {
         }
         // push into the bucket
         for (int i = 0; i < arr.length; i++) {
+            //计算桶的位次
             int index = indexFor(arr[i], min, 10);
             ((ArrayList<Integer>) buckList.get(index)).add(arr[i]);
         }

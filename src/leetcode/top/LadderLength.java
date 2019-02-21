@@ -1,6 +1,8 @@
 package leetcode.top;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * 给定两个单词（beginWord 和 endWord）和一个字典，找到从 beginWord 到 endWord 的最短转换序列的长度。
@@ -38,12 +40,72 @@ import java.util.List;
  */
 public class LadderLength {
     /**
+     * BFS解决
+     * 同时也可以两端搜索,使得两边碰面即可
+     *
      * @param beginWord 初始单词
      * @param endWord   待转换单词
      * @param wordList  字典
      * @return
      */
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        Stack<String> ladders = new Stack<>();
+        ladders.push(beginWord);
+        boolean[] ifExist = new boolean[wordList.size()];
+        int level = 1;
+        //只要栈非空
+        while (!ladders.empty()) {
+            int size = ladders.size();
+            level++;
+            while (size > 0) {
+                String temp = ladders.pop();
+                for (int i = 0; i < wordList.size(); i++) {
+                    //这个单词未被访问,且与原单词只有一个单词不相同
+                    if (!ifExist[i] && ifLad(temp, wordList.get(i))) {
+                        if (wordList.get(i).equals(endWord)) {
+                            return level;
+                        }
+                        ladders.push(wordList.get(i));
+                        ifExist[i] = true;
+                    }
+                }
+                size--;
+            }
+        }
         return 0;
     }
+
+    /**
+     * 判断是否能够转换
+     *
+     * @param beginWord
+     * @param endWord
+     * @return
+     */
+    public boolean ifLad(String beginWord, String endWord) {
+        int len = 0;
+        for (int i = 0; i < beginWord.length(); i++) {
+            if (beginWord.charAt(i) != endWord.charAt(i)) {
+                len++;
+            }
+        }
+        if (len < 2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void main(String[] args) {
+        List<String> wordList = new ArrayList<>();
+        wordList.add("hot");
+        wordList.add("dot");
+        wordList.add("dog");
+        wordList.add("lot");
+        wordList.add("log");
+        wordList.add("cog");
+        LadderLength ladderLength = new LadderLength();
+        ladderLength.ladderLength("hit", "cog", wordList);
+    }
+
 }

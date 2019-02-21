@@ -13,6 +13,14 @@ package sort.code;
  * @Time : 2019/2/6 14:17
  */
 public class QuickSort {
+    /**
+     * 用于求解 Kth Element 问题，使用快速排序的 partition() 进行实现。
+     * 需要先打乱数组，否则最坏情况下时间复杂度为 O(N2)。
+     *
+     * @param arr
+     * @param head
+     * @param tail
+     */
     public static void qSort(int[] arr, int head, int tail) {
         if (head >= tail || arr == null || arr.length <= 1) {
             return;

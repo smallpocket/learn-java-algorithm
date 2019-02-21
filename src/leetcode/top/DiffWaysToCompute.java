@@ -30,6 +30,7 @@ import java.util.List;
 public class DiffWaysToCompute {
     /**
      * FIXME:分治法,基于每个运算符进行分解
+     * 从最简单的问题考虑
      *
      * @param input
      * @return
@@ -52,6 +53,8 @@ public class DiffWaysToCompute {
                                 break;
                             case '*':
                                 ways.add(l * r);
+                                break;
+                            default:
                                 break;
                         }
                     }
