@@ -26,6 +26,10 @@ public class InvertTree {
         if (root == null) {
             return null;
         }
+        // 后面的操作会改变 left 指针，因此先保存下来
+//        TreeNode left = root.left;
+//        root.left = invertTree(root.right);
+//        root.right = invertTree(left);
         TreeNode temp;
         temp = root.left;
         root.left = root.right;
