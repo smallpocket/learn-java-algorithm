@@ -18,10 +18,7 @@ package leetcode.top;
  * @date 2019/2/18 16:57
  */
 public class SingleNumberII {
-    public int singleNumber(int[] nums) {
-        if (nums == null || nums.length == 0) {
-            return -1;
-        }
-        return 1;
+    public int[] singleNumber(int[] nums) {
+        return null;
     }
 }
