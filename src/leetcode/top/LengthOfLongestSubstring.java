@@ -1,6 +1,8 @@
 package leetcode.top;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -28,8 +30,11 @@ import java.util.Set;
  */
 public class LengthOfLongestSubstring {
     /**
-     * 用一个26位的数组,出现a就给数组0位+1,依次来判断是否有该字符
-     * 用set检验
+     * 是否重复的检验方法：
+     * 1. 用一个26位的数组,出现a就给数组0位+1,依次来判断是否有该字符
+     * 2. 用set检验
+     * <p>
+     * 滑动窗口算法：计算最长子串的长度
      *
      * @param s
      * @return
@@ -43,16 +48,47 @@ public class LengthOfLongestSubstring {
         //ans记录无重复字符的最长子串
         //i记录子串开头,j记录结尾
         int ans = 0, i = 0, j = 0;
+        //滑动窗口算法，窗口为[i,j]
         while (i < n && j < n) {
-            // try to extend the range [i, j]
+            //查询当前的窗口当中是否存在j
+            //如果存在就添加并令j++，即右侧窗右移
             if (!set.contains(s.charAt(j))) {
                 set.add(s.charAt(j++));
                 ans = Math.max(ans, j - i);
             } else {
+                //遇到重复的字符，将左侧的窗口右移动
+                //此时可知在[i+1,j-1]区间内是无重复的。因此直接判断在[i+1,j]中j的加入是否影响
                 set.remove(s.charAt(i++));
             }
         }
         return ans;
+    }
 
+    /**
+     * 继续做优化，在上次的算法当中，需要在左侧窗口不断的右推，如果直接知道j字符所出现的位置，
+     * 令i等于位置+1即可
+     * 方式：
+     * 1. hashmap
+     * 2. 数组
+     *
+     * @param s
+     * @return
+     */
+    public int lengthOfLongestSubstringI(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        int n = s.length(), ans = 0;
+        //字符，字符出现的index
+        Map<Character, Integer> map = new HashMap<>();
+        for (int j = 0, i = 0; j < n; j++) {
+            if (map.containsKey(s.charAt(j))) {
+                i = Math.max(map.get(s.charAt(j)), i);
+            }
+            ans = Math.max(ans, j - i + 1);
+            //原有的值被覆盖了。
+            map.put(s.charAt(j), j + 1);
+        }
+        return ans;
     }
 }

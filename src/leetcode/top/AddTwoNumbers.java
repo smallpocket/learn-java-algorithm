@@ -25,14 +25,23 @@ public class AddTwoNumbers {
         }
     }
 
+    /**
+     * 模仿我们对两个数字的加法
+     *
+     * @param l1
+     * @param l2
+     * @return
+     */
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode dummyHead = new ListNode(0);
         ListNode p = l1, q = l2, curr = dummyHead;
         int carry = 0;
+        //加法过程中，只要其中一个数字没有加完，那么另一个数字补0即可，因此是||运算
         while (p != null || q != null) {
             int x = (p != null) ? p.val : 0;
             int y = (q != null) ? q.val : 0;
             int sum = carry + x + y;
+            //通过/与%计算
             carry = sum / 10;
             curr.next = new ListNode(sum % 10);
             curr = curr.next;
@@ -43,9 +52,11 @@ public class AddTwoNumbers {
                 q = q.next;
             }
         }
+        //这个时候两个数字p,q都结束了
         if (carry > 0) {
             curr.next = new ListNode(carry);
         }
         return dummyHead.next;
     }
+
 }
