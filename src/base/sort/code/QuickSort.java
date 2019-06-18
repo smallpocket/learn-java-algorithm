@@ -1,4 +1,4 @@
-package sort.code;
+package base.sort.code;
 
 /**
  * 使用分治法来把一个串（list）分为两个子串（sub-lists）。具体算法描述如下：
@@ -45,5 +45,11 @@ public class QuickSort {
         }
         qSort(arr, head, j);
         qSort(arr, i, tail);
+    }
+
+    private void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }

@@ -1,4 +1,4 @@
-package sort.code;
+package base.sort.code;
 
 /**
  * 堆积是一个近似完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于（或者大于）

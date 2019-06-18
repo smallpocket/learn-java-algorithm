@@ -805,7 +805,7 @@ private void backtracking(List<Integer> permuteList, List<List<Integer>> permute
 public List<List<Integer>> permuteUnique(int[] nums) {
     List<List<Integer>> permutes = new ArrayList<>();
     List<Integer> permuteList = new ArrayList<>();
-    Arrays.sort(nums);  // 排序
+    Arrays.base.sort(nums);  // 排序
     boolean[] hasVisited = new boolean[nums.length];
     backtracking(permuteList, permutes, hasVisited, nums);
     return permutes;
@@ -913,7 +913,7 @@ A solution set is:
 ]
 public List<List<Integer>> combinationSum2(int[] candidates, int target) {
     List<List<Integer>> combinations = new ArrayList<>();
-    Arrays.sort(candidates);
+    Arrays.base.sort(candidates);
     backtracking(new ArrayList<>(), combinations, new boolean[candidates.length], 0, target, candidates);
     return combinations;
 }
@@ -1028,7 +1028,7 @@ If nums = [1,2,2], a solution is:
   []
 ]
 public List<List<Integer>> subsetsWithDup(int[] nums) {
-    Arrays.sort(nums);
+    Arrays.base.sort(nums);
     List<List<Integer>> subsets = new ArrayList<>();
     List<Integer> tempSubset = new ArrayList<>();
     boolean[] hasVisited = new boolean[nums.length];

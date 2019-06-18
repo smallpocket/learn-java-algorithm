@@ -1,4 +1,4 @@
-package sort.code;
+package base.sort.code;
 
 /**
  * 计数排序不是基于比较的排序算法，其核心在于将输入的数据值转化为键存储在额外开辟的数组空间中。

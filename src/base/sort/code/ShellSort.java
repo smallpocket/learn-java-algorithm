@@ -1,4 +1,4 @@
-package sort.code;
+package base.sort.code;
 
 /**
  * 先将整个待排序的记录序列分割成为若干子序列分别进行直接插入排序，具体算法描述：
@@ -26,5 +26,11 @@ public class ShellSort {
                 }
             }
         }
+    }
+
+    private void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }

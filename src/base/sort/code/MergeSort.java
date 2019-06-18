@@ -1,4 +1,4 @@
-package sort.code;
+package base.sort.code;
 
 /**
  * 把长度为n的输入序列分成两个长度为n/2的子序列；
@@ -46,5 +46,11 @@ public class MergeSort {
             arr[x + low] = temp[x];
         }
 
+    }
+
+    private void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }

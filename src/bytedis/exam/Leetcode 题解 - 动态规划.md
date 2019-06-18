@@ -489,7 +489,7 @@ public int findLongestChain(int[][] pairs) {
     if (pairs == null || pairs.length == 0) {
         return 0;
     }
-    Arrays.sort(pairs, (a, b) -> (a[0] - b[0]));
+    Arrays.base.sort(pairs, (a, b) -> (a[0] - b[0]));
     int n = pairs.length;
     int[] dp = new int[n];
     Arrays.fill(dp, 1);
@@ -935,7 +935,7 @@ public int combinationSum4(int[] nums, int target) {
     }
     int[] maximum = new int[target + 1];
     maximum[0] = 1;
-    Arrays.sort(nums);
+    Arrays.base.sort(nums);
     for (int i = 1; i <= target; i++) {
         for (int j = 0; j < nums.length && nums[j] <= i; j++) {
             maximum[i] += maximum[i - nums[j]];

@@ -33,7 +33,7 @@
 
 ```
 public int findKthLargest(int[] nums, int k) {
-    Arrays.sort(nums);
+    Arrays.base.sort(nums);
     return nums[nums.length - k];
 }
 ```

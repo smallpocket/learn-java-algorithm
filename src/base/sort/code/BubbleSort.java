@@ -1,4 +1,4 @@
-package sort.code;
+package base.sort.code;
 
 /**
  * @Title : 冒泡排序
@@ -15,15 +15,24 @@ public class BubbleSort {
      * @param arr
      */
     public void bubbleSort(int[] arr) {
-        int temp;
-        for (int i = 0; i < arr.length - 1; i++) {
-            for (int j = 0; j < arr.length - 1 - i; i++) {
+        if (arr == null || arr.length < 2) {
+            return;
+        }
+        //end代表数组的结尾。也是在该次循环当中，end位置的元素会有序
+        for (int end = arr.length - 1; end > 0; end--) {
+            //进行两两比较，
+            for (int j = 0; j < end; j++) {
                 if (arr[j] > arr[j + 1]) {
-                    temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
+                    swap(arr, j, j + 1);
                 }
             }
         }
+    }
+
+
+    private void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
