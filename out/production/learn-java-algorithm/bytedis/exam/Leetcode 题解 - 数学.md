@@ -307,7 +307,7 @@ Only two moves are needed (remember each move increments or decrements one eleme
 
 ```
 public int minMoves2(int[] nums) {
-    Arrays.sort(nums);
+    Arrays.base.sort(nums);
     int move = 0;
     int l = 0, h = nums.length - 1;
     while (l <= h) {
@@ -380,7 +380,7 @@ private void swap(int[] nums, int i, int j) {
 
 ```
 public int majorityElement(int[] nums) {
-    Arrays.sort(nums);
+    Arrays.base.sort(nums);
     return nums[nums.length / 2];
 }
 ```

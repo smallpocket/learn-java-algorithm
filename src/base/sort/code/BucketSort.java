@@ -19,16 +19,17 @@ import java.util.List;
  * @Time : 2019/2/6 14:18
  */
 public class BucketSort {
+
+    public int[] arr;
+
     private int indexFor(int a, int min, int step) {
         return (a - min) / step;
     }
 
     /**
      * 出现频率最多的 k 个数
-     *
-     * @param arr
      */
-    public void bucketSort(int[] arr) {
+    public void sort() {
         int max = arr[0], min = arr[0];
         for (int a : arr) {
             if (max < a) {
@@ -38,17 +39,13 @@ public class BucketSort {
                 min = a;
             }
         }
-        // 該值也可根據實際情況選擇
-        int bucketNum = max / 10 - min / 10 + 1;
-        List buckList = new ArrayList<List<Integer>>();
-        // create bucket
-        for (int i = 1; i <= bucketNum; i++) {
-            buckList.add(new ArrayList<Integer>());
-        }
+        // 该值也可以根据实际情况选择
+        int step = 10;
+        int bucketNum = max / step - min / step + 1;
+        List buckList = createBucket(bucketNum);
         // push into the bucket
         for (int i = 0; i < arr.length; i++) {
-            //计算桶的位次
-            int index = indexFor(arr[i], min, 10);
+            int index = indexFor(arr[i], min, step);
             ((ArrayList<Integer>) buckList.get(index)).add(arr[i]);
         }
         ArrayList<Integer> bucket = null;
@@ -61,6 +58,18 @@ public class BucketSort {
             }
         }
 
+    }
+
+    /**
+     * @param bucketNum 桶的数目
+     * @return
+     */
+    private List<List<Integer>> createBucket(int bucketNum) {
+        List<List<Integer>> bucketList = new ArrayList<List<Integer>>();
+        for (int i = 1; i <= bucketNum; i++) {
+            bucketList.add(new ArrayList<Integer>());
+        }
+        return bucketList;
     }
 
     /**

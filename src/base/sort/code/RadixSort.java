@@ -16,46 +16,100 @@ import java.util.Arrays;
  * @Author : Heper
  * @Time : 2019/2/6 14:18
  */
-public class RadixSort {
+interface RadixSortInterface {
+    public void sort();
+}
 
-    /**
-     * 8.基数排序  稳定的排序算法
-     *
-     * @param array 代表数组
-     * @param radix 代表基数
-     * @param d     代表排序元素的位数
-     */
-    public static void radixSort(Integer[] array, int radix, int d) {
-        // 临时数组
-        Integer[] tempArray = new Integer[array.length];
-        // count用于记录待排序元素的信息,用来表示该位是i的数的个数
-        Integer[] count = new Integer[radix];
+public class RadixSort implements RadixSortInterface {
+    public int[] arr;
 
-        int rate = 1;
-        for (int i = 0; i < d; i++) {
-            //重置count数组，开始统计下一个关键字
-            Arrays.fill(count, 0);
-            //将array中的元素完全复制到tempArray数组中
-            System.arraycopy(array, 0, tempArray, 0, array.length);
+    public RadixSort(int[] array) {
+        this.arr = array;
+    }
 
-            //计算每个待排序数据的子关键字
-            for (int j = 0; j < array.length; j++) {
-                int subKey = (tempArray[j] / rate) % radix;
-                count[subKey]++;
+    @Override
+    public void sort() {
+        // 对 arr 进行拷贝，不改变参数内容
+        int maxDigit = getMaxDigit(arr);
+        radixSort(maxDigit);
+    }
+
+    private int[] radixSort(int maxDigit) {
+        int mod = 10;
+        int dev = 1;
+
+        for (int i = 0; i < maxDigit; i++, dev *= 10, mod *= 10) {
+            // 考虑负数的情况，这里扩展一倍队列数，其中 [0-9]对应负数，[10-19]对应正数 (bucket + 10)
+            int[][] counter = new int[mod * 2][10];
+
+            for (int j = 0; j < arr.length; j++) {
+                int bucket = ((arr[j] % mod) / dev) + mod;
+                counter[bucket] = arrayAppend(counter[bucket], arr[j]);
             }
-            //统计count数组的前j位（包含j）共有多少个数
-            for (int j = 1; j < radix; j++) {
-                count[j] = count[j] + count[j - 1];
+
+            int pos = 0;
+            for (int[] bucket : counter) {
+                for (int value : bucket) {
+                    arr[pos++] = value;
+                }
             }
-            //按子关键字对指定的数据进行排序 ，因为开始是从前往后放，现在从后忘前读取，保证基数排序的稳定性
-            for (int m = array.length - 1; m >= 0; m--) {
-                int subKey = (tempArray[m] / rate) % radix;
-                array[--count[subKey]] = tempArray[m]; //插入到第--count[subKey]位，因为数组下标从0开始
-            }
-            rate *= radix;//前进一位
-            System.out.print("第" + (i + 1) + "次：");
-            //print(array);
         }
 
+        return arr;
     }
+
+    /**
+     * 自动扩容，并保存数据
+     *
+     * @param array
+     * @param value
+     */
+    private int[] arrayAppend(int[] array, int value) {
+        array = Arrays.copyOf(array, array.length + 1);
+        array[array.length - 1] = value;
+        return array;
+    }
+
+    /**
+     * 获取最大数字的长度
+     */
+    private int getMaxDigit(int[] arr) {
+        int maxValue = getMaxValue(arr);
+        return getNumLenght(maxValue);
+    }
+
+    /**
+     * 获得最大值
+     *
+     * @param arr
+     * @return
+     */
+    private int getMaxValue(int[] arr) {
+        int maxValue = arr[0];
+        for (int value : arr) {
+            if (maxValue < value) {
+                maxValue = value;
+            }
+        }
+        return maxValue;
+    }
+
+    /**
+     * 获得数字的长度
+     *
+     * @param num
+     * @return
+     */
+    protected int getNumLenght(long num) {
+        if (num == 0) {
+            return 1;
+        }
+        int lenght = 0;
+        for (long temp = num; temp != 0; temp /= 10) {
+            lenght++;
+        }
+        return lenght;
+    }
+
+
 }

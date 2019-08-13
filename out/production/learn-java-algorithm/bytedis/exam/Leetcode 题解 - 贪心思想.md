@@ -33,8 +33,8 @@ You need to output 2.
 
 ```
 public int findContentChildren(int[] g, int[] s) {
-    Arrays.sort(g);
-    Arrays.sort(s);
+    Arrays.base.sort(g);
+    Arrays.base.sort(s);
     int gi = 0, si = 0;
     while (gi < g.length && si < s.length) {
         if (g[gi] <= s[si]) {
@@ -76,7 +76,7 @@ public int eraseOverlapIntervals(Interval[] intervals) {
     if (intervals.length == 0) {
         return 0;
     }
-    Arrays.sort(intervals, Comparator.comparingInt(o -> o.end));
+    Arrays.base.sort(intervals, Comparator.comparingInt(o -> o.end));
     int cnt = 1;
     int end = intervals[0].end;
     for (int i = 1; i < intervals.length; i++) {
@@ -93,7 +93,7 @@ public int eraseOverlapIntervals(Interval[] intervals) {
 使用 lambda 表示式创建 Comparator 会导致算法运行时间过长，如果注重运行时间，可以修改为普通创建 Comparator 语句：
 
 ```
-Arrays.sort(intervals, new Comparator<Interval>() {
+Arrays.base.sort(intervals, new Comparator<Interval>() {
     @Override
     public int compare(Interval o1, Interval o2) {
         return o1.end - o2.end;
@@ -122,7 +122,7 @@ public int findMinArrowShots(int[][] points) {
     if (points.length == 0) {
         return 0;
     }
-    Arrays.sort(points, Comparator.comparingInt(o -> o[1]));
+    Arrays.base.sort(points, Comparator.comparingInt(o -> o[1]));
     int cnt = 1, end = points[0][1];
     for (int i = 1; i < points.length; i++) {
         if (points[i][0] <= end) {
@@ -158,7 +158,7 @@ public int[][] reconstructQueue(int[][] people) {
     if (people == null || people.length == 0 || people[0].length == 0) {
         return new int[0][0];
     }
-    Arrays.sort(people, (a, b) -> (a[0] == b[0] ? a[1] - b[1] : b[0] - a[0]));
+    Arrays.base.sort(people, (a, b) -> (a[0] == b[0] ? a[1] - b[1] : b[0] - a[0]));
     List<int[]> queue = new ArrayList<>();
     for (int[] p : people) {
         queue.add(p[1], p);

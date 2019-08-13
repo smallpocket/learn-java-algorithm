@@ -1,8 +1,8 @@
-package exam.ABase;
+package exam.ABase.ALogarithm;
 
 import java.util.Arrays;
 
-public class Logarithm {
+public class LogarithmForArray {
 
     /**
      * 冒泡排序，需要测试的方法
