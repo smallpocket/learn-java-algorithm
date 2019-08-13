@@ -3,6 +3,24 @@ package base.sort.code;
 import java.util.Arrays;
 
 /**
+ * 大根堆
+ */
+interface HeapSortInterface {
+    /**
+     * 上浮
+     *
+     * @param k
+     */
+    void swim(int k);
+
+    /**
+     * 下沉
+     *
+     * @param k
+     */
+    void sink(int k);
+}
+/**
  * 用于求解 TopK Elements 问题，通过维护一个大小为 K 的堆，堆中的元素就是 TopK Elements。
  * 堆排序也可以用于求解 Kth Element 问题，堆顶元素就是 Kth Element。
  *
@@ -10,13 +28,33 @@ import java.util.Arrays;
  * @title
  * @date 2019/2/16 21:04
  */
-public class HeapSort {
-    private int[] arr;
+public class HeapSort implements HeapSortInterface {
+    public int[] arr;
 
     public HeapSort(int[] arr) {
         this.arr = arr;
     }
 
+    @Override
+    public void swim(int k) {
+        while (k > 1 && less(k / 2, k)) {
+            swap(k / 2, k);
+            k = k / 2;
+        }
+    }
+
+    @Override
+    public void sink(int k) {
+        while (2 * k <= N) {
+            int j = 2 * k;
+            if (j < N && less(j, j + 1))
+                j++;
+            if (!less(k, j))
+                break;
+            swap(k, j);
+            k = j;
+        }
+    }
     /**
      * 堆排序的主要入口方法，共两步。
      */
@@ -44,11 +82,6 @@ public class HeapSort {
         }
     }
 
-    private void swap(int i, int j) {
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
 
     /**
      * 调整索引为 index 处的数据，使其符合堆的特性。
@@ -79,15 +112,21 @@ public class HeapSort {
         }
     }
 
-    /**
-     * 测试用例
-     * <p>
-     * 输出：
-     * [0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9]
-     */
-    public static void main(String[] args) {
-        int[] arr = new int[]{3, 5, 3, 0, 8, 6, 1, 5, 8, 6, 2, 4, 9, 4, 7, 0, 1, 8, 9, 7, 3, 1, 2, 5, 9, 7, 4, 0, 2, 6};
-        new HeapSort(arr).sort();
-        System.out.println(Arrays.toString(arr));
+//    /**
+//     * 测试用例
+//     * <p>
+//     * 输出：
+//     * [0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9]
+//     */
+//    public static void main(String[] args) {
+//        int[] arr = new int[]{3, 5, 3, 0, 8, 6, 1, 5, 8, 6, 2, 4, 9, 4, 7, 0, 1, 8, 9, 7, 3, 1, 2, 5, 9, 7, 4, 0, 2, 6};
+//        new HeapSort(arr).sort();
+//        System.out.println(Arrays.toString(arr));
+//    }
+
+    private void swap(int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
