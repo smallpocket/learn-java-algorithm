@@ -22,32 +22,21 @@ public class BucketSort {
 
     public int[] arr;
 
-    private int indexFor(int a, int min, int step) {
-        return (a - min) / step;
-    }
-
+    private int min;
     /**
      * 出现频率最多的 k 个数
      */
     public void sort() {
-        int max = arr[0], min = arr[0];
-        for (int a : arr) {
-            if (max < a) {
-                max = a;
-            }
-            if (min > a) {
-                min = a;
-            }
-        }
         // 该值也可以根据实际情况选择
         int step = 10;
-        int bucketNum = max / step - min / step + 1;
+        int bucketNum = getBucketNum(step);
         List buckList = createBucket(bucketNum);
         // push into the bucket
         for (int i = 0; i < arr.length; i++) {
             int index = indexFor(arr[i], min, step);
             ((ArrayList<Integer>) buckList.get(index)).add(arr[i]);
         }
+        //start sort
         ArrayList<Integer> bucket = null;
         int index = 0;
         for (int i = 0; i < bucketNum; i++) {
@@ -70,6 +59,38 @@ public class BucketSort {
             bucketList.add(new ArrayList<Integer>());
         }
         return bucketList;
+    }
+
+    /**
+     * 获得桶的数目
+     *
+     * @param step
+     * @return
+     */
+    private int getBucketNum(int step) {
+        int max = arr[0], mins = arr[0];
+        for (int a : arr) {
+            if (max < a) {
+                max = a;
+            }
+            if (mins > a) {
+                mins = a;
+            }
+        }
+        this.min = mins;
+        return max / step - mins / step + 1;
+    }
+
+    /**
+     * 计算桶序号
+     *
+     * @param a    需要放入桶的数据
+     * @param min  最小值
+     * @param step
+     * @return
+     */
+    private int indexFor(int a, int min, int step) {
+        return (a - min) / step;
     }
 
     /**

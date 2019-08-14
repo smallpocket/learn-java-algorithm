@@ -13,31 +13,46 @@ package base.sort.code;
  * @Time : 2019/2/6 14:18
  */
 public class CountingSort {
-    public int[] countSort(int[] array, int k) {
-        //构造C数组
-        int[] C = new int[k + 1];
-        //获取A数组大小用于构造B数组
-        int length = array.length, sum = 0;
-        //构造B数组
-        int[] B = new int[length];
-        for (int i = 0; i < length; i++) {
-            // 统计A中各元素个数，存入C数组
-            C[array[i]] += 1;
-        }
-        //修改C数组
-        for (int i = 0; i < k + 1; i++) {
-            sum += C[i];
-            C[i] = sum;
-        }
-        //遍历A数组，构造B数组
-        for (int i = length - 1; i >= 0; i--) {
-            //将A中该元素放到排序后数组B中指定的位置
-            B[C[array[i]] - 1] = array[i];
-            //将C中该元素-1，方便存放下一个同样大小的元素
-            C[array[i]]--;
 
+    public int[] arr;
+
+    private int min;
+
+    public int[] countSort() {
+        int b[] = new int[arr.length];
+        int k = getBucketNum();
+
+        int c[] = new int[k];
+        for (int i = 0; i < arr.length; i++) {
+            c[arr[i] - min] += 1;//优化过的地方，减小了数组c的大小
         }
-        //将排序好的数组返回，完成排序
-        return B;
+        for (int i = 1; i < c.length; i++) {
+            c[i] = c[i] + c[i - 1];
+        }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            b[--c[arr[i] - min]] = arr[i];//按存取的方式取出c的元素
+        }
+        return b;
     }
+
+    /**
+     * 获得桶的数目
+     *
+     * @return
+     */
+    private int getBucketNum() {
+        int max = arr[0], mins = arr[0];
+        for (int a : arr) {
+            if (max < a) {
+                max = a;
+            }
+            if (mins > a) {
+                mins = a;
+            }
+        }
+        this.min = mins;
+        return max - mins + 1;
+    }
+
+
 }
